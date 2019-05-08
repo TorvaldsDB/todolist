@@ -17,11 +17,21 @@ class Todolist extends Component {
             value={this.state.inputValue}
             onChange={this.handleInputChange.bind(this)}
           />
-          <button>提交</button>
+          <button onClick={this.handleBtnClick.bind(this)}>提交</button>
         </div>
         <ul>
-          <li>1</li>
-          <li>2</li>
+          {
+            this.state.list.map((item, index) => {
+              return (
+                <li
+                  key={index}
+                  onClick={this.handleItemDelete.bind(this, index)}
+                >
+                  {item}
+                </li>
+              )
+            })
+          }
         </ul>
 			</Fragment>
 		)
@@ -30,6 +40,25 @@ class Todolist extends Component {
   handleInputChange(e){
     this.setState({
       inputValue: e.target.value
+    })
+  }
+
+  handleBtnClick(){
+    this.setState({
+      list: [...this.state.list, this.state.inputValue],
+      inputValue: ''
+    })
+  }
+
+  handleItemDelete(index){
+    // immutable
+    // state 不允许我们做任何改变
+    // 如果你强制做了 state 的修改, 那么性能优化就会出现问题
+    const list = [...this.state.list];
+    list.splice(index, 1);
+
+    this.setState({
+      list: list
     })
   }
 }
