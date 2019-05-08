@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import './style.css';
 
 class Todolist extends Component {
   constructor(props) {
@@ -13,7 +14,14 @@ class Todolist extends Component {
 		return (
 			<Fragment>
         <div>
+          {/* 花括号里面是 JS 的表达式, 这是一段注释 */}
+          {
+            // 这是一段单行的注释
+          }
+          <label htmlFor='inserArea'>输入内容</label>
           <input
+            id='inserArea'
+            className='input'
             value={this.state.inputValue}
             onChange={this.handleInputChange.bind(this)}
           />
@@ -26,8 +34,8 @@ class Todolist extends Component {
                 <li
                   key={index}
                   onClick={this.handleItemDelete.bind(this, index)}
+                  dangerouslySetInnerHTML={{__html: item}}
                 >
-                  {item}
                 </li>
               )
             })
