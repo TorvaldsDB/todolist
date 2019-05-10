@@ -9,10 +9,6 @@ class Todolist extends Component {
       inputValue: '',
       list: []
     }
-
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleBtnClick = this.handleBtnClick.bind(this);
-    this.handleItemDelete = this.handleItemDelete.bind(this);
   }
 
 	render(){
@@ -39,7 +35,7 @@ class Todolist extends Component {
 		)
 	}
 
-  getTodoItem(){
+  getTodoItem = () => {
 		return this.state.list.map((item, index) => {
 			return (
         <TodoItem
@@ -52,12 +48,12 @@ class Todolist extends Component {
 		})
 	}
 
-  handleInputChange(e){
+  handleInputChange = e => {
 		// 这是一种古老的写法, 已经被函数淘汰. setState 要写作一个函数
     // this.setState({
     //   inputValue: e.target.value
     // })
-		// 下面这种写法会报错, 因为 setState 是一个异步的函数, 这里获取不到 e.target
+		// 下面这种写法会报错, 因为 setState 内传入的参数函数是一个异步的函数, 这里获取不到 e.target
 		// this.setState(() => ({
 			// inputValue: e.target.value
 		// }))
@@ -68,7 +64,7 @@ class Todolist extends Component {
 		}))
   }
 
-  handleBtnClick(){
+  handleBtnClick = () => {
     // this.setState({
     //   list: [...this.state.list, this.state.inputValue],
     //   inputValue: ''
@@ -80,7 +76,7 @@ class Todolist extends Component {
 		// }))
 		// 可以利用 setState 参数进行操作. 是最简洁的.
     // ES6里面规定: 箭头函数结果, 如果里面是对象需要用 ({.....}), {}内表示对象, 如果不是对象就只需要 {....}, {}内表示 块
-		this.setState((prevState) => ({
+		this.setState(prevState => ({
 			list: [...prevState.list, prevState.inputValue],
 			inputValue: ''
 		}))
@@ -102,8 +98,17 @@ class Todolist extends Component {
   // }
 
   // 标准写法
-  handleItemDelete(index){
-    this.setState((prevState) => {
+  // handleItemDelete(index){
+  //   this.setState((prevState) => {
+  //     const list = [...prevState.list];
+  //     list.splice(index, 1);
+  //     return {list} // {} 说明 list 是一个对象, 而且键值对相同都是 list 即 list: list
+  //   })
+  // }
+
+  // ES6 写法
+  handleItemDelete = index => {
+    this.setState(prevState => {
       const list = [...prevState.list];
       list.splice(index, 1);
       return {list} // {} 说明 list 是一个对象, 而且键值对相同都是 list 即 list: list

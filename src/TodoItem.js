@@ -17,7 +17,7 @@ class TodoItem extends Component {
     )
   }
 
-  handleClick(){
+  handleClick = () => {
     const { deleteItem, index } = this.props;
 
     deleteItem(index);
