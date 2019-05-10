@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import TodoItem from './TodoItem';
 import './style.css';
 
 class Todolist extends Component {
@@ -31,12 +32,13 @@ class Todolist extends Component {
           {
             this.state.list.map((item, index) => {
               return (
-                <li
-                  key={index}
-                  onClick={this.handleItemDelete.bind(this, index)}
-                  dangerouslySetInnerHTML={{__html: item}}
-                >
-                </li>
+                <Fragment>
+                  <TodoItem
+                    content={item}
+                    index={index}
+                    deleteItem={this.handleItemDelete.bind(this)}
+                  />
+                </Fragment>
               )
             })
           }
