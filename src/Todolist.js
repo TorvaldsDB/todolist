@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
-import Test from './Test';
 import './style.css';
 
 class Todolist extends Component {
@@ -14,7 +13,6 @@ class Todolist extends Component {
   }
 
 	render(){
-    console.log('render');
 		return (
 			<Fragment>
         <div>
@@ -28,13 +26,13 @@ class Todolist extends Component {
             className='input'
             value={this.state.inputValue}
             onChange={this.handleInputChange}
+            ref={(input) => { this.input = input }}
           />
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
-        <ul>
+        <ul ref={(ul) => {this.ul = ul}}>
           {this.getTodoItem()}
         </ul>
-        <Test content={this.state.inputValue} />
 			</Fragment>
 		)
 	}
@@ -62,7 +60,9 @@ class Todolist extends Component {
 			// inputValue: e.target.value
 		// }))
 		// 需要提前对 e.target.value 的值做一次保留, 然后传递到 setState 函数中.
-		const value = e.target.value;
+		// const value = e.target.value;
+    // ref this.input 来实现.
+		const value = this.input.value;
 		this.setState(() => ({
 			inputValue: value
 		}))
@@ -83,7 +83,11 @@ class Todolist extends Component {
 		this.setState(prevState => ({
 			list: [...prevState.list, prevState.inputValue],
 			inputValue: ''
-		}))
+    }), () => {
+      console.log(this.ul.querySelectorAll('div').length);
+    })
+    // setState is asynchronous function. 异步函数.
+    // console.log(this.ul.querySelectorAll('div').length);
   }
 
   // handleItemDelete(index){
