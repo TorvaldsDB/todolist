@@ -12,7 +12,13 @@ class Todolist extends Component {
     }
   }
 
+  // 在组件即将被挂在到页面的时刻自动执行
+  componentWillMount(){
+    console.log('componentWillMount');
+  }
+
 	render(){
+    console.log('parent render');
 		return (
 			<Fragment>
         <div>
@@ -36,6 +42,34 @@ class Todolist extends Component {
 			</Fragment>
 		)
 	}
+
+  // 组件被挂在到页面之后, 自动被执行.
+  componentDidMount(){
+    console.log('componentDidMount');
+  }
+
+  // 组件被更新之前, 它会自动被执行
+  shouldComponentUpdate(){
+    console.log('shouldComponentUpdate');
+    return true;
+  }
+
+  // 组件被更新之前, 它会自动执行. 但是它在 shouldComponentUpdate之后执行
+  // 如果 shouldComponentUpdate 返回 true 它才执行
+  // 如果 shouldComponentUpdate 返回 false 它不会继续执行
+  componentWillUpdate(){
+    console.log('componentWillUpdate');
+  }
+
+  // 组件更新完成之后, 它会被执行
+  componentDidUpdate(){
+    console.log('componentDidUpdate');
+  }
+
+  // 不会被执行
+  componentWillReceiveProps(){
+    console.log('componentWillReceiveProps');
+  }
 
   getTodoItem = () => {
 		return this.state.list.map((item, index) => {
