@@ -1,7 +1,16 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
 import axios from 'axios';
+import mockAdapter from 'axios-mock-adapter';
 import './style.css';
+
+// This sets the mock adapter on the default instance
+// https://github.com/ctimmerm/axios-mock-adapter
+const mock = new mockAdapter(axios);
+
+// Mock any GET request to /users
+// arguments for reply are (status, data, headers)
+mock.onGet('/api/todolist', { params: { user: "torvalds" } }).reply(200, ["Ruby", "React", "Redux", "Saga"]);
 
 class Todolist extends Component {
   constructor(props) {
@@ -31,7 +40,7 @@ class Todolist extends Component {
           />
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
-        <ul ref={(ul) => {this.ul = ul}}>
+        <ul>
           {this.getTodoItem()}
         </ul>
 			</Fragment>
@@ -40,10 +49,27 @@ class Todolist extends Component {
 
   // 组件被挂在到页面之后, 自动被执行.
   componentDidMount(){
+    axios.get('/api/todolist', { params: { user: "torvalds" } })
+      .then((res) => {
+        // console.log("res", res.data);
 
+        // 原始写法
+        // this.setState(() => {
+        //   return {
+        //     list: res.data
+        //   }
+        // });
+
+        // 新写法
+        // this.setState(() => ({ list: res.data }))
+        // 最佳写法
+        this.setState(() => ({ list: [...res.data] }))
+      })
+      .catch(() => { alert('error') })
   }
 
   getTodoItem = () => {
+    console.log("list", this.state.list.data)
 		return this.state.list.map((item, index) => {
 			return (
         <TodoItem
