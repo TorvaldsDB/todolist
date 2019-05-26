@@ -13,6 +13,7 @@ class TodoList extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleStoreChange = this.handleStoreChange.bind(this);
     this.handleBtnClick = this.handleBtnClick.bind(this);
+    this.handleItemDelete = this.handleItemDelete.bind(this);
     store.subscribe(this.handleStoreChange);
   }
 
@@ -34,7 +35,7 @@ class TodoList extends Component {
           bordered
           dataSource={this.state.list}
           renderItem={(item, index) => (
-            <List.Item onClick={this.handleItemDelete.bind(this, index)}>
+            <List.Item onClick={this.handleItemDelete.bind(index)}>
               {item}
             </List.Item>
           )}
