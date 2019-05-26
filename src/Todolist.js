@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import TodoItem from './TodoItem';
+import axios from 'axios';
 import './style.css';
 
 class Todolist extends Component {
@@ -32,7 +33,6 @@ class Todolist extends Component {
             className='input'
             value={this.state.inputValue}
             onChange={this.handleInputChange}
-            ref={(input) => { this.input = input }}
           />
           <button onClick={this.handleBtnClick}>提交</button>
         </div>
@@ -46,6 +46,10 @@ class Todolist extends Component {
   // 组件被挂在到页面之后, 自动被执行.
   componentDidMount(){
     console.log('componentDidMount');
+
+    axios.get('/api/todolist')
+      .then(() => { alert('succ') })
+      .catch(() => { alert('error') })
   }
 
   // 组件被更新之前, 它会自动被执行
@@ -94,9 +98,7 @@ class Todolist extends Component {
 			// inputValue: e.target.value
 		// }))
 		// 需要提前对 e.target.value 的值做一次保留, 然后传递到 setState 函数中.
-		// const value = e.target.value;
-    // ref this.input 来实现.
-		const value = this.input.value;
+		const value = e.target.value;
 		this.setState(() => ({
 			inputValue: value
 		}))

@@ -8,9 +8,14 @@ class TodoItem extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
 
-  shouldComponentUpdate(){
+  shouldComponentUpdate(nextProps, nextState){
     console.log('child shouldComponentUpdate');
-    return true;
+    // if (nextProps.content !== this.props.content) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
+    return (nextProps.content !== this.props.content)
   }
 
   render(){
@@ -35,7 +40,7 @@ class TodoItem extends Component {
   // 如果这个组件第一次存在于父组件中, 不会执行
   // 如果这个组件之前已经存在于父组件中, 才会执行
   componentWillReceiveProps(){
-   console.log('child componentWillReceiveProps');
+    console.log('child componentWillReceiveProps');
   }
 
   // 当这个组件即将被从页面中剔除的时候, 会被执行.
