@@ -6,6 +6,9 @@ const defaultState = {
 }
 
 // reducer 可以接受 state, 但是绝不能修改 state
+// reducer 必须是纯函数: 给定固定的输入, 就一定会有固定的输出, 而且不会有任何的副作用
+// 1. 不要有可变的因素在函数中
+// 2. 不要对参数(state action)作更改. 一旦做了修改, 我们就说造成了副作用.
 export default (state = defaultState, action) => {
   if (!action) {
     return state;
