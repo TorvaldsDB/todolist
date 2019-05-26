@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'antd/dist/antd.css';
 import { Input, Button, List } from 'antd';
 import store from './store';
+import * as actions from './store/actionCreators';
 import { CHANGE_INPUT_VALUE, ADD_TODO_ITEM, DELETE_TODO_ITEM } from './store/actionTypes';
 
 class TodoList extends Component {
@@ -43,33 +44,25 @@ class TodoList extends Component {
   }
 
   handleInputChange(e) {
-    const action = {
-      type: CHANGE_INPUT_VALUE,
-      value: e.target.value
-    }
+    const action = actions.getInputChangeAction(e.target.value);
 
-    store.dispatch(action); // store dispatch action 的同时, 也把当前的 state 传递给了 reducer
-  }
-
-  handleStoreChange() {
-    this.setState(store.getState());
+    store.dispatch(action);
   }
 
   handleBtnClick() {
-    const action = {
-      type: ADD_TODO_ITEM
-    }
+    const action = actions.getAddItemAction();
 
     store.dispatch(action);
   }
 
   handleItemDelete(index) {
-    const action = {
-      type: DELETE_TODO_ITEM,
-      index
-    }
+    const action = actions.getItemDeleteAction(index);
 
     store.dispatch(action);
+  }
+
+  handleStoreChange() {
+    this.setState(store.getState());
   }
 }
 
