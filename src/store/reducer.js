@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 
 const defaultState = {
-  inputvalue: "",
+  inputValue: "",
   list: []
 }
 
@@ -17,11 +17,11 @@ export default (state = defaultState, action) => {
   const newState = JSON.parse(JSON.stringify(state));
 
   if (action.type === actionTypes.CHANGE_INPUT_VALUE) {
-    newState.inputvalue = action.value
+    newState.inputValue = action.value
   }
   if (action.type === actionTypes.ADD_TODO_ITEM) {
-    newState.list.push(newState.inputvalue);
-    newState.inputvalue = "";
+    newState.list.push(newState.inputValue);
+    newState.inputValue = "";
   }
   if (action.type === actionTypes.DELETE_TODO_ITEM) {
     newState.list.splice(action.index, 1);
