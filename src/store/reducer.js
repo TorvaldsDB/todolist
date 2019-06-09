@@ -26,6 +26,9 @@ export default (state = defaultState, action) => {
   if (action.type === actionTypes.DELETE_TODO_ITEM) {
     newState.list.splice(action.index, 1);
   }
+  if (action.type === actionTypes.INITIALIZE_LIST) {
+    newState.list = action.data
+  }
 
   return newState;
 }
