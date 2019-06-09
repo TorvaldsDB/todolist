@@ -3,6 +3,12 @@ import 'antd/dist/antd.css';
 import store from './store';
 import * as actions from './store/actionCreators';
 import TodoListUI from './TodoListUI';
+import axios from 'axios';
+import mockAdapter from 'axios-mock-adapter';
+
+const mock = new mockAdapter(axios);
+
+mock.onGet('/list.json').reply(200, ['Ruby', 'React', 'JavaScript', 'C/C++'])
 
 class TodoList extends Component {
   constructor(props){
@@ -26,6 +32,14 @@ class TodoList extends Component {
         handleItemDelete={ this.handleItemDelete }
       />
     )
+  }
+
+  componentDidMount() {
+    axios.get('/list.json').then((res) => {
+      console.log(res.data);
+    }).catch(() => {
+      alert('respond fail');
+    })
   }
 
   handleInputChange(e) {
