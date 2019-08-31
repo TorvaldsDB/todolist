@@ -3,6 +3,7 @@ import 'antd/dist/antd.css';
 import store from './store';
 import * as actions from './store/actionCreators';
 import TodoListUI from './TodoListUI';
+import axios from 'axios';
 
 class TodoList extends Component {
   constructor(props){
@@ -29,8 +30,12 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    const action = actions.getTodoList();
-    store.dispatch(action);
+    axios.get('/list.json').then((res) => {
+      const action = actions.initTodoList(res.data);
+      store.dispatch(action);
+    }).catch(() => {
+      alert('respond fail');
+    })
   }
 
   handleInputChange(e) {
