@@ -3,7 +3,7 @@ import { GET_INIT_LIST } from './actionTypes';
 import axios from 'axios';
 import { initTodoList } from './actionCreators';
 
-function* getInitList() {
+function* fetchInitList() {
   try {
     const res = yield axios.get('/list.json');
     const action = yield initTodoList(res.data);
@@ -14,7 +14,7 @@ function* getInitList() {
 }
 
 function* todoSagas() {
-  yield takeEvery(GET_INIT_LIST, getInitList)
+  yield takeEvery(GET_INIT_LIST, fetchInitList)
 }
 
 export default todoSagas;
