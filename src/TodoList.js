@@ -6,7 +6,10 @@ class TodoList extends Component {
     return (
       <Fragment>
         <div>
-          <input value={this.props.inputValue} />
+          <input
+            value={this.props.inputValue}
+            onChange={this.props.changeInputValue}
+          />
           <button>添加</button>
         </div>
         <ul>
@@ -23,7 +26,20 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    changeInputValue(e) {
+      console.log(e.target.value);
+      const action = {
+        type: "change_input_value",
+        value: e.target.value
+      };
+      dispatch(action);
+    }
+  };
+};
+
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(TodoList);
