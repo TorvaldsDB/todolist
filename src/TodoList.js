@@ -6,15 +6,13 @@ import {
   handleDelete
 } from "./store/actionCreators";
 
-const TodoList = props => {
-  const {
-    inputValue,
-    list,
-    changeInputValue,
-    handleClick,
-    handleDelete
-  } = props;
-
+const TodoList = ({
+  inputValue,
+  list,
+  changeInputValue,
+  handleClick,
+  handleDelete
+}) => {
   return (
     <Fragment>
       <div>
