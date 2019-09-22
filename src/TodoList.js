@@ -10,10 +10,12 @@ class TodoList extends Component {
             value={this.props.inputValue}
             onChange={this.props.changeInputValue}
           />
-          <button>添加</button>
+          <button onClick={this.props.handleClick}>添加</button>
         </div>
         <ul>
-          <li>Ok</li>
+          {this.props.list.map((item, index) => {
+            return <li key={index}>{item}</li>;
+          })}
         </ul>
       </Fragment>
     );
@@ -22,17 +24,24 @@ class TodoList extends Component {
 
 const mapStateToProps = state => {
   return {
-    inputValue: state.inputValue
+    inputValue: state.inputValue,
+    list: state.list
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     changeInputValue(e) {
-      console.log(e.target.value);
       const action = {
         type: "change_input_value",
         value: e.target.value
+      };
+      dispatch(action);
+    },
+
+    handleClick() {
+      const action = {
+        type: "add_item"
       };
       dispatch(action);
     }
