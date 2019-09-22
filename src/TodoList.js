@@ -1,35 +1,33 @@
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import { connect } from "react-redux";
 
-class TodoList extends Component {
-  render() {
-    const {
-      inputValue,
-      list,
-      changeInputValue,
-      handleClick,
-      handleDelete
-    } = this.props;
+const TodoList = props => {
+  const {
+    inputValue,
+    list,
+    changeInputValue,
+    handleClick,
+    handleDelete
+  } = props;
 
-    return (
-      <Fragment>
-        <div>
-          <input value={inputValue} onChange={changeInputValue} />
-          <button onClick={handleClick}>添加</button>
-        </div>
-        <ul>
-          {list.map((item, index) => {
-            return (
-              <li key={index} onClick={handleDelete.bind(this, index)}>
-                {item}
-              </li>
-            );
-          })}
-        </ul>
-      </Fragment>
-    );
-  }
-}
+  return (
+    <Fragment>
+      <div>
+        <input value={inputValue} onChange={changeInputValue} />
+        <button onClick={handleClick}>添加</button>
+      </div>
+      <ul>
+        {list.map((item, index) => {
+          return (
+            <li key={index} onClick={handleDelete.bind(this, index)}>
+              {item}
+            </li>
+          );
+        })}
+      </ul>
+    </Fragment>
+  );
+};
 
 const mapStateToProps = state => {
   return {
